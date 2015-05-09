@@ -1,0 +1,28 @@
+.Battery {
+  width: 400px;
+  height: 100px;
+  position: relative;
+  @extend %sh1;
+  padding: 2px;
+  background-color: palette(Grey, 200);
+  margin-bottom: 20px;
+}
+
+.battery-fill-amount {
+  background-color: palette(Green);
+  height: 100%;
+  width: 20%;
+}
+
+$nubSize: 40px;
+.battery-nub {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -$nubSize / 2;
+  margin-right: -$nubSize / 2;
+  width: $nubSize / 2;
+  height: $nubSize;
+  background-color: palette(Grey);
+  @extend %sh1;
+}
