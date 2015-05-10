@@ -5,6 +5,10 @@
 # but you can also edit it by hand.
 
 meteor-platform
-fourseven:scss
+fourseven:scss@2.1.1
 meteorhacks:flow-router
 reactjs:react
+meteorhacks:npm
+
+
+npm-container
