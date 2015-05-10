@@ -9,17 +9,14 @@ Cylon.robot({
   },
 
   devices: {
-    servo: { driver: 'servo', pin: 3, connection: 'edison' }
+    servo: { driver: 'servo', pin: 3, connection: 'edison' },
+    sensor: { driver: 'ir-range-sensor', pin: 0, model: 'gp2y0a41sk0f' }
   },
 
   work: function(my) {
-    my.server.subscribe('hello');
-
-    my.server.on('message', function (topic, data) {
-      console.log(topic + ": " + data);
-    });
-
     var angle = 0;
+    var connected = false;
+    var charge = 600;
     my.servo.angle(angle);
     setInterval(function(){
       angle = angle + 45;
@@ -27,8 +24,10 @@ Cylon.robot({
           angle = 45; //reset position if servo angle is greater than 135 (i.e. 180)
       }
       my.servo.angle(angle);
+      var range = my.sensor.range();
+      console.log('Range ===>', range);
       console.log("Servo Angle: "+angle);
-      my.server.publish('hello', 'hi there');
+      my.server.publish('status', connected+','+charge);
     },1000);
   }
 

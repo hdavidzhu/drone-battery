@@ -26,9 +26,14 @@ server.on('clientConnected', function(client) {
 });
 
 // fired when a message is received
-server.on('published', function(packet, client) {
-  console.log('Published', packet.payload.toString());
-});
+server.on('published', Meteor.bindEnvironment(function(packet, client) {
+  var msg = packet.payload.toString();
+  console.log('Published', msg);
+  var msgdata = msg.split(",");
+  if(msgdata[1] != null) {
+    Batteries.upsert({batteryId: 0}, {batteryId: 0, percentage: JSON.parse(msgdata[1]), attached: JSON.parse(msgdata[0])});
+  } 
+}));
 
 // fired when the mqtt server is ready
 function setup() {
@@ -40,12 +45,9 @@ function setup() {
 
 // On server startup, create some players if the database is empty.
 if (Meteor.isServer) {
-  console.log("Yo");
   Meteor.startup(function () {
-    console.log("Yo");
     if (Batteries.find().count() === 0) {
-      
-      var batteryStock = 5;
+      var batteryStock = 4;
       var batteryNumbers = new Array(batteryStock);
 
       for(var i = 0; i < batteryNumbers.length; i++){
@@ -53,7 +55,7 @@ if (Meteor.isServer) {
         
         Batteries.insert({
           batteryId: i,
-          percentage: 1024,
+          percentage: 1024*Math.random(),
           attached: true
         })
       }

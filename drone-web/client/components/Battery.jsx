@@ -48,7 +48,7 @@ Battery = React.createClass({
       width: this.state.percentage
     };
 
-    var attachedStatus = this.state.percentage;
+    var attachedStatus = this.state.attached;
     if (!this.state.attached) {
       attachedStatus = "Detached.";
       chargeAmount = {
