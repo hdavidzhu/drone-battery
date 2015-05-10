@@ -1,20 +1,10 @@
-Battery = ReactMeteor.createClass({
-  mixins: [ReactMeteor.Mixin],
-  // templateName: "Battery",
-
-  // startMeteorSubscriptions: function(){
-  // },
-
-  // getMeteorState: function(){
-  //   return {
-  //   };
-  // },
+Battery = React.createClass({
 
   getInitialState: function(){
 
     // Converted the percentage number.
     var convertedPercentage = this.props.info.percentage * 100 / 1024;
-    convertedPercentage = Math.round(convertedPercentage).toString();
+    convertedPercentage = Math.round(convertedPercentage).toString() + '%';
 
     return {
       batteryId: this.props.info.batteryId,
@@ -25,9 +15,8 @@ Battery = ReactMeteor.createClass({
 
   render: function(){
 
-    // TODO: Make this variable considering the input.
     var chargeAmount = {
-      width: '90%'
+      width: this.state.percentage
     };
 
     return (
