@@ -1,6 +1,9 @@
 @import "helpers/shadows";
 @import "helpers/palette";
+@import "helpers/mixins";
 
 @import "base/base";
 
 @import "components/battery";
+
+@import "pages/main";

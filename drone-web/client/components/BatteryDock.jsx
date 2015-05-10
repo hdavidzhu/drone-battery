@@ -7,7 +7,7 @@ var BatteryDock = ReactMeteor.createClass({
 
   getMeteorState: function(){
     return {
-      batteries: Batteries.find({}, {sort: {_id: 1}}).fetch()
+      batteries: Batteries.find({}, {sort: {batteryId: 1}}).fetch()
     };
   },
 
@@ -20,7 +20,7 @@ var BatteryDock = ReactMeteor.createClass({
     }
 
     return (
-      <div className="Battery">
+      <div className="BatteryDock">
         {displayBatteries}
       </div>
     );
