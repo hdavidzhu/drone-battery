@@ -6,7 +6,8 @@ var BatteryDock = ReactMeteor.createClass({
   },
 
   getMeteorState: function(){
-    console.log('database change')
+    console.log('database change');
+    
     return {
       batteries: Batteries.find({}, {sort: {batteryId: 1}}).fetch()
     };

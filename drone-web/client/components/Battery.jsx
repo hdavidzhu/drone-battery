@@ -3,7 +3,8 @@ Battery = ReactMeteor.createClass({
   startMeteorSubscriptions: function(){
     Meteor.subscribe("Batteries");
   },
-  getMeteorState: function(){
+
+  getInitialState: function(){
 
     // Converted the percentage number.
     var convertedPercentage = this.props.info.percentage * 100 / 1024;
@@ -14,6 +15,12 @@ Battery = ReactMeteor.createClass({
       attached: this.props.info.attached,
       percentage: convertedPercentage
     };
+  },
+
+  getMeteorState: function(){
+    return {
+      battery: Batteries.find({batteryId: this.state.batteryId}, {sort: {batteryId: 1}}).fetch()
+    }
   },
 
   ripple: function(event){
