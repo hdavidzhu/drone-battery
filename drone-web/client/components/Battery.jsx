@@ -48,11 +48,21 @@ Battery = React.createClass({
       width: this.state.percentage
     };
 
+    var attachedStatus = this.state.percentage;
+    if (!this.state.attached) {
+      attachedStatus = "Detached.";
+      chargeAmount = {
+        width: "100%",
+        backgroundColor: "#F44336"
+      }
+    }
+
     return (
       <div className="Battery">
         <div className="battery-fill-amount" style={chargeAmount}></div>
         <div className="battery-nub"></div>
-        <div className="ripple" onClick={_this.ripple}></div>
+        <div className="battery-number">{this.state.batteryId}</div>
+        <div className="ripple" onClick={_this.ripple}>{attachedStatus}</div>
       </div>
     );
   }
