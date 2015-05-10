@@ -1,0 +1,11 @@
+div#web-title {
+  font-size: 36pt;
+  color: palette(Black, 700);
+  text-align: center;
+  margin: auto;
+  margin-bottom: 20px;
+  background-color: palette(White);
+  @extend %sh1;
+  width: 480px;
+  padding: 20px;
+}

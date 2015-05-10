@@ -20,7 +20,7 @@ var BatteryDock = ReactMeteor.createClass({
     }
 
     return (
-      <div className="Battery">
+      <div className="BatteryDock">
         {displayBatteries}
       </div>
     );
