@@ -2,12 +2,12 @@ var BatteryDock = ReactMeteor.createClass({
   templateName: "BatteryDock",
 
   startMeteorSubscriptions: function(){
-    Meteor.subscribe("Batteries");
+    Meteor.subscribe("batteries");
   },
 
   getMeteorState: function(){
     console.log('database change');
-    
+
     return {
       batteries: Batteries.find({}, {sort: {batteryId: 1}}).fetch()
     };

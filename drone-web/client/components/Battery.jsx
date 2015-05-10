@@ -1,25 +1,13 @@
-Battery = ReactMeteor.createClass({
+Battery = React.createClass({
+  mixins: [ReactMeteor.Mixin],
 
   startMeteorSubscriptions: function(){
-    Meteor.subscribe("Batteries");
-  },
-
-  getInitialState: function(){
-
-    // Converted the percentage number.
-    var convertedPercentage = this.props.info.percentage * 100 / 1024;
-    convertedPercentage = Math.round(convertedPercentage).toString() + '%';
-
-    return {
-      batteryId: this.props.info.batteryId,
-      attached: this.props.info.attached,
-      percentage: convertedPercentage
-    };
+    Meteor.subscribe("batteries");
   },
 
   getMeteorState: function(){
     return {
-      battery: Batteries.find({batteryId: this.state.batteryId}, {sort: {batteryId: 1}}).fetch()
+      battery: Batteries.findOne({_id: this.props.info._id}, {sort: {batteryId: 1}})
     }
   },
 
@@ -54,13 +42,20 @@ Battery = ReactMeteor.createClass({
   render: function(){
     var _this = this;
 
+    console.log(this.state);
+
+    var batteryPercentage = this.state.battery.percentage;
+    batteryPercentage = Math.floor(batteryPercentage * 100 / 1024).toString() + '%';
+    console.log(batteryPercentage);
+
     var chargeAmount = {
-      width: this.state.percentage
+      width: batteryPercentage
     };
 
-    var attachedStatus = this.state.attached;
-    if (!this.state.attached) {
-      attachedStatus = "Detached.";
+    var attachedStatus = this.state.battery.attached;
+    var attachedStatusMsg = batteryPercentage;
+    if (!this.state.battery.attached) {
+      attachedStatusMsg = "Detached.";
       chargeAmount = {
         width: "100%",
         backgroundColor: "#F44336"
@@ -71,8 +66,8 @@ Battery = ReactMeteor.createClass({
       <div className="Battery">
         <div className="battery-fill-amount" style={chargeAmount}></div>
         <div className="battery-nub"></div>
-        <div className="battery-number">{this.state.batteryId}</div>
-        <div className="ripple" onClick={_this.ripple}>{attachedStatus}</div>
+        <div className="battery-number">{this.state.battery.batteryId}</div>
+        <div className="ripple" onClick={_this.ripple}>{attachedStatusMsg}</div>
       </div>
     );
   }
