@@ -1,32 +1,28 @@
 var BatteryDock = ReactMeteor.createClass({
-  mixins: [ReactMeteor.Mixin],
   templateName: "BatteryDock",
 
   startMeteorSubscriptions: function(){
+    Meteor.subscribe("batteries");
   },
 
   getMeteorState: function(){
     return {
+      batteries: Batteries.find({}, {sort: {_id: 1}}).fetch()
     };
-  },
-
-  renderBattery: function(){
-    return <Battery />;
   },
 
   render: function(){
 
-    var batteries = [];
-
-    for (var i=0; i < 8; i++) {
-      batteries.push(<Battery />);
+    // Initialize and pass battery information down to the component.
+    var displayBatteries = [];
+    for (var i=0; i < this.state.batteries.length; i++) {
+      displayBatteries.push(<Battery info={this.state.batteries[i]} />);
     }
 
     return (
       <div className="Battery">
-        {batteries}
+        {displayBatteries}
       </div>
     );
   }
-
 });
