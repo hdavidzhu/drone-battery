@@ -1,6 +1,9 @@
-Battery = React.createClass({
+Battery = ReactMeteor.createClass({
 
-  getInitialState: function(){
+  startMeteorSubscriptions: function(){
+    Meteor.subscribe("Batteries");
+  },
+  getMeteorState: function(){
 
     // Converted the percentage number.
     var convertedPercentage = this.props.info.percentage * 100 / 1024;
