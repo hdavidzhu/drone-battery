@@ -8,3 +8,4 @@ meteor-platform
 fourseven:scss
 meteorhacks:flow-router
 reactjs:react
+autopublish

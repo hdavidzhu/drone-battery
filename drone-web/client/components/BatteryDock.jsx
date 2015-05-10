@@ -1,14 +1,33 @@
+var cx = React.addons.classSet;
+
 var BatteryDock = ReactMeteor.createClass({
-  mixins: [ReactMeteor.Mixin],
   templateName: "BatteryDock",
 
-  startMeteorSubscriptions: function(){
-  },
+  // startMeteorSubscriptions: function(){
+  //   Meteor.subscribe("batteries");
+  // },
 
   getMeteorState: function(){
+    console.log("Gettting the state.");
     return {
+      // batteries: Batteries.find({}, {sort: {_id: 1}}).fetch()
+      batteries: Batteries.find().count()
+      // batteries: 7
     };
+
+    // return {};
   },
+
+  // getInitialState: function(){
+  //   console.log("Gettting the state.");
+  //   return {
+  //     // batteries: Batteries.find({}, {sort: {_id: 1}}).fetch()
+  //     batteries: Batteries.find().count()
+  //     // batteries: 7
+  //   };
+
+  //   // return {};
+  // },
 
   renderBattery: function(){
     return <Battery />;
@@ -16,17 +35,22 @@ var BatteryDock = ReactMeteor.createClass({
 
   render: function(){
 
-    var batteries = [];
+    console.log("Hello!");
+    console.log(this.state.batteries);
 
-    for (var i=0; i < 8; i++) {
-      batteries.push(<Battery />);
-    }
+    // var displayBatteries = [];
 
-    return (
-      <div className="Battery">
-        {batteries}
-      </div>
-    );
+    // for (var i=0; i < 8; i++) {
+    //   displayBatteries.push(<Battery />);
+    // }
+
+    // return (
+    //   <div className="Battery">
+    //     {displayBatteries}
+    //   </div>
+    // );
+
+    return <div></div>;
   }
 
 });

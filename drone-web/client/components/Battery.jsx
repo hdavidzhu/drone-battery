@@ -15,9 +15,15 @@ Battery = ReactMeteor.createClass({
   },
 
   render: function(){
+
+    // TODO: Make this variable considering the input.
+    var chargeAmount = {
+      width: '90%'
+    };
+
     return (
       <div className="Battery">
-        <div className="battery-fill-amount"></div>
+        <div className="battery-fill-amount" style={chargeAmount}></div>
         <div className="battery-nub"></div>
       </div>
     );
