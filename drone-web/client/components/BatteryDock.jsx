@@ -1,56 +1,28 @@
-var cx = React.addons.classSet;
-
 var BatteryDock = ReactMeteor.createClass({
   templateName: "BatteryDock",
 
-  // startMeteorSubscriptions: function(){
-  //   Meteor.subscribe("batteries");
-  // },
-
-  getMeteorState: function(){
-    console.log("Gettting the state.");
-    return {
-      // batteries: Batteries.find({}, {sort: {_id: 1}}).fetch()
-      batteries: Batteries.find().count()
-      // batteries: 7
-    };
-
-    // return {};
+  startMeteorSubscriptions: function(){
+    Meteor.subscribe("batteries");
   },
 
-  // getInitialState: function(){
-  //   console.log("Gettting the state.");
-  //   return {
-  //     // batteries: Batteries.find({}, {sort: {_id: 1}}).fetch()
-  //     batteries: Batteries.find().count()
-  //     // batteries: 7
-  //   };
-
-  //   // return {};
-  // },
-
-  renderBattery: function(){
-    return <Battery />;
+  getMeteorState: function(){
+    return {
+      batteries: Batteries.find({}, {sort: {_id: 1}}).fetch()
+    };
   },
 
   render: function(){
 
-    console.log("Hello!");
-    console.log(this.state.batteries);
+    // Initialize and pass battery information down to the component.
+    var displayBatteries = [];
+    for (var i=0; i < this.state.batteries.length; i++) {
+      displayBatteries.push(<Battery info={this.state.batteries[i]} />);
+    }
 
-    // var displayBatteries = [];
-
-    // for (var i=0; i < 8; i++) {
-    //   displayBatteries.push(<Battery />);
-    // }
-
-    // return (
-    //   <div className="Battery">
-    //     {displayBatteries}
-    //   </div>
-    // );
-
-    return <div></div>;
+    return (
+      <div className="Battery">
+        {displayBatteries}
+      </div>
+    );
   }
-
 });

@@ -11,7 +11,16 @@ Battery = ReactMeteor.createClass({
   // },
 
   getInitialState: function(){
-    return {};
+
+    // Converted the percentage number.
+    var convertedPercentage = this.props.info.percentage * 100 / 1024;
+    convertedPercentage = Math.round(convertedPercentage).toString();
+
+    return {
+      batteryId: this.props.info.batteryId,
+      attached: this.props.info.attached,
+      percentage: convertedPercentage
+    };
   },
 
   render: function(){

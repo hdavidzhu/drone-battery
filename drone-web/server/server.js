@@ -20,7 +20,7 @@ if (Meteor.isServer) {
     }
   });
 
-  // Meteor.publish("batteries", function() {
-  //   return Batteries.find();
-  // });
+  Meteor.publish("batteries", function() {
+    return Batteries.find();
+  });
 }
