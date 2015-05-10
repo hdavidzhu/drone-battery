@@ -5,7 +5,7 @@ var Cylon = require('cylon');
 Cylon.robot({
   connections: {
     edison: { adaptor: 'intel-iot' },
-    server: { adaptor: 'mqtt', host: 'mqtt://192.168.2.1:1883' }
+    server: { adaptor: 'mqtt', host: 'mqtt://softlayer.dewan.us:1883' }
   },
 
   devices: {
@@ -14,19 +14,35 @@ Cylon.robot({
   },
 
   work: function(my) {
-    var angle = 0;
-    var connected = false;
+    var angle = 50;
+    var connected = true;
+    var same = false;
     var charge = 600;
     my.servo.angle(angle);
     setInterval(function(){
-      angle = angle + 45;
-      if(angle > 135){
-          angle = 45; //reset position if servo angle is greater than 135 (i.e. 180)
+      var range = my.sensor.range();
+      if(range <=3 && range > 0 && same == false) {
+        same = true;
+        if (connected == true) {
+          angle = 120;
+          connected = false;
+        }
+        else {
+          angle = 50;
+          connected = true;
+          charge = 100;
+        }
+      }
+      else if(range <=3 && range > 0) {}
+      else {
+        same = false;
       }
       my.servo.angle(angle);
-      var range = my.sensor.range();
+      charge = charge + 50;
+      if(charge >=1023 ) charge = 1022;
       console.log('Range ===>', range);
       console.log("Servo Angle: "+angle);
+      console.log('same?'+same);
       my.server.publish('status', connected+','+charge);
     },1000);
   }

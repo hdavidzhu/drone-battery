@@ -3,7 +3,7 @@ var mosca = Meteor.npmRequire('mosca')
 var ascoltatore = {
   //using ascoltatore
   type: 'mongo',        
-  url: 'mongodb://localhost:3001/mqtt',
+  url: 'mongodb://localhost/mqtt',
   pubsubCollection: 'ascoltatori',
   mongo: {}
 };
@@ -13,7 +13,7 @@ var moscaSettings = {
   backend: ascoltatore,
   persistence: {
     factory: mosca.persistence.Mongo,
-    url: 'mongodb://localhost:3001/mqtt'
+    url: 'mongodb://localhost/mqtt'
   }
 };
 
